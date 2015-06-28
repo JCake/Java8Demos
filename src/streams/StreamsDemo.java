@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class StreamsDemo {
 	public static void main(String[] args){
@@ -20,22 +19,21 @@ public class StreamsDemo {
 		filtering(intList, intSet);
 	}
 
-	private static void filtering(List<Integer> intList, Set<Integer> intSet) {
-		// TODO Auto-generated method stub
+	private static void booleanChecks(List<Integer> intList) {
+		boolean allLessThan10 = intList.stream().allMatch(i -> i < 10);
+		System.out.println("Are all numbers less than 10? " + allLessThan10);
 		
-	}
-
-	private static void mapping(List<Integer> intList, Set<Integer> intSet) {
-		List<Integer> listDoubledToList = intList.stream().map(i -> i * 2).collect(Collectors.toList());
-		Set<Integer> setDoubledToSet = intSet.stream().map(i -> i * 2).collect(Collectors.toSet());
-		Set<Integer> listDoubledToSet = intList.stream().map(i -> i * 2).collect(Collectors.toSet());
+		boolean allLessThanOrEqualTo10 = intList.stream().allMatch(i -> i <= 10);
+		System.out.println("Are all numbers less than or equal to 10? " + allLessThanOrEqualTo10);
 		
-		System.out.println("Original list: " + intList);
-		System.out.println("Original set: " + intSet);
-		System.out.println("List doubled to list: " + listDoubledToList);
-		System.out.println("Set doubled to set: " + setDoubledToSet);
-		System.out.println("List doubled to set: " + listDoubledToSet);
+		boolean anyEven = intList.stream().anyMatch(i -> i % 2 == 0);
+		System.out.println("Any even? " + anyEven);
 		
+		boolean anyNegative = intList.stream().anyMatch(i -> i < 0);
+		System.out.println("Any negative? " + anyNegative);
+		
+		boolean nonNegative = intList.stream().noneMatch(i -> i < 0);
+		System.out.println("None negative? " + nonNegative);
 	}
 
 	private static void calculations(List<Integer> intList) {
@@ -60,21 +58,25 @@ public class StreamsDemo {
 		int product = intList.stream().mapToInt(Integer::valueOf).reduce(1, (a,b) -> a * b);
 		System.out.println("product: " + product);
 	}
+	
+	private static void mapping(List<Integer> intList, Set<Integer> intSet) {
+		List<Integer> listDoubledToList = intList.stream().map(i -> i * 2).collect(Collectors.toList());
+		Set<Integer> setDoubledToSet = intSet.stream().map(i -> i * 2).collect(Collectors.toSet());
+		Set<Integer> listDoubledToSet = intList.stream().map(i -> i * 2).collect(Collectors.toSet());
+		
+		System.out.println("Original list: " + intList);
+		System.out.println("Original set: " + intSet);
+		System.out.println("List doubled to list: " + listDoubledToList);
+		System.out.println("Set doubled to set: " + setDoubledToSet);
+		System.out.println("List doubled to set: " + listDoubledToSet);
+		
+	}
 
-	private static void booleanChecks(List<Integer> intList) {
-		boolean allLessThan10 = intList.stream().allMatch(i -> i < 10);
-		System.out.println("Are all numbers less than 10? " + allLessThan10);
+	private static void filtering(List<Integer> intList, Set<Integer> intSet) {
+		List<Integer> evenNumbers = intList.stream().filter(i -> i % 2 == 0).collect(Collectors.toList());
+		System.out.println("even numbers: " + evenNumbers);
 		
-		boolean allLessThanOrEqualTo10 = intList.stream().allMatch(i -> i <= 10);
-		System.out.println("Are all numbers less than or equal to 10? " + allLessThanOrEqualTo10);
-		
-		boolean anyEven = intList.stream().anyMatch(i -> i % 2 == 0);
-		System.out.println("Any even? " + anyEven);
-		
-		boolean anyNegative = intList.stream().anyMatch(i -> i < 0);
-		System.out.println("Any negative? " + anyNegative);
-		
-		boolean nonNegative = intList.stream().noneMatch(i -> i < 0);
-		System.out.println("None negative? " + nonNegative);
+		Set<Integer> oddNumbers = intSet.stream().filter(i -> i % 2 == 1).collect(Collectors.toSet());
+		System.out.println("odd numbers: " + oddNumbers);
 	}
 }
