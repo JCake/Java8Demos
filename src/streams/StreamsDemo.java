@@ -2,6 +2,7 @@ package streams;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -13,27 +14,27 @@ public class StreamsDemo {
 		List<Integer> intList = Arrays.asList(1,2,2,3,4,5,5,5,6,7,8,8,9,10);
 		Set<Integer> intSet = new HashSet<>(intList);
 		
-		booleanChecks(intList);
-		calculations(intList);
-		mapping(intList, intSet);
-		filtering(intList, intSet);
-		methodChaining(intSet);
+		booleanChecks(intList); //intSet also works
+//		calculations(intList);
+//		mapping(intList, intSet);
+//		filtering(intList, intSet);
+//		methodChaining(intSet);
 	}
 
-	private static void booleanChecks(List<Integer> intList) {
-		boolean allLessThan10 = intList.stream().allMatch(i -> i < 10);
+	private static void booleanChecks(Collection<Integer> intCollection) {
+		boolean allLessThan10 = intCollection.stream().allMatch(i -> i < 10);
 		System.out.println("Are all numbers less than 10? " + allLessThan10);
 		
-		boolean allLessThanOrEqualTo10 = intList.stream().allMatch(i -> i <= 10);
+		boolean allLessThanOrEqualTo10 = intCollection.stream().allMatch(i -> i <= 10);
 		System.out.println("Are all numbers less than or equal to 10? " + allLessThanOrEqualTo10);
 		
-		boolean anyEven = intList.stream().anyMatch(i -> i % 2 == 0);
+		boolean anyEven = intCollection.stream().anyMatch(i -> i % 2 == 0);
 		System.out.println("Any even? " + anyEven);
 		
-		boolean anyNegative = intList.stream().anyMatch(i -> i < 0);
+		boolean anyNegative = intCollection.stream().anyMatch(i -> i < 0);
 		System.out.println("Any negative? " + anyNegative);
 		
-		boolean nonNegative = intList.stream().noneMatch(i -> i < 0);
+		boolean nonNegative = intCollection.stream().noneMatch(i -> i < 0);
 		System.out.println("None negative? " + nonNegative);
 	}
 
@@ -70,6 +71,12 @@ public class StreamsDemo {
 		System.out.println("List doubled to list: " + listDoubledToList);
 		System.out.println("Set doubled to set: " + setDoubledToSet);
 		System.out.println("List doubled to set: " + listDoubledToSet);
+		
+		List<Integer> outOfOrderList = Arrays.asList(5,2,7,1,9,3,4,5,9);
+		List<Integer> sortedList = outOfOrderList.stream().sorted().collect(Collectors.toList());
+		//Sorting on stream does NOT modify list in place
+		System.out.println("Unordered:  " + outOfOrderList);
+		System.out.println("Sorted: " + sortedList);
 	}
 
 	private static void filtering(List<Integer> intList, Set<Integer> intSet) {
@@ -78,6 +85,11 @@ public class StreamsDemo {
 		
 		Set<Integer> oddNumbers = intSet.stream().filter(i -> i % 2 == 1).collect(Collectors.toSet());
 		System.out.println("odd numbers: " + oddNumbers);
+		
+		List<Integer> duplicatesList = Arrays.asList(4,4,7,1,2,9,2,1);
+		List<Integer> noDuplicates = duplicatesList.stream().distinct().collect(Collectors.toList());
+		System.out.println("With duplicates: " + duplicatesList);
+		System.out.println("Duplicates removed: " + noDuplicates);
 	}
 	
 	private static void methodChaining(Set<Integer> intSet) {
