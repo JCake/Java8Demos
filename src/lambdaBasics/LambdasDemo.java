@@ -7,6 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * See also: https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html
+ */
 public class LambdasDemo {
 
 	public static void main(String[] args){

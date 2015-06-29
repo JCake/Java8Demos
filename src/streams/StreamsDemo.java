@@ -9,6 +9,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Demonstration of aggregate operations on collections using streams
+ * See also:  https://docs.oracle.com/javase/tutorial/collections/streams/index.html
+ */
 public class StreamsDemo {
 	public static void main(String[] args){
 		List<Integer> intList = Arrays.asList(1,2,2,3,4,5,5,5,6,7,8,8,9,10);
