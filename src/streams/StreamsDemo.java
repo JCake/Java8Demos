@@ -17,6 +17,7 @@ public class StreamsDemo {
 		calculations(intList);
 		mapping(intList, intSet);
 		filtering(intList, intSet);
+		methodChaining(intSet);
 	}
 
 	private static void booleanChecks(List<Integer> intList) {
@@ -69,7 +70,6 @@ public class StreamsDemo {
 		System.out.println("List doubled to list: " + listDoubledToList);
 		System.out.println("Set doubled to set: " + setDoubledToSet);
 		System.out.println("List doubled to set: " + listDoubledToSet);
-		
 	}
 
 	private static void filtering(List<Integer> intList, Set<Integer> intSet) {
@@ -78,5 +78,13 @@ public class StreamsDemo {
 		
 		Set<Integer> oddNumbers = intSet.stream().filter(i -> i % 2 == 1).collect(Collectors.toSet());
 		System.out.println("odd numbers: " + oddNumbers);
+	}
+	
+	private static void methodChaining(Set<Integer> intSet) {
+		int negativeSumOfEvensDividedBy2 = intSet.stream()
+				.filter(i -> i % 2 == 0)
+				.map(i -> i / 2)
+				.reduce(0, (a,b) -> a - b);
+		System.out.println("combo thingy: " + negativeSumOfEvensDividedBy2);
 	}
 }
